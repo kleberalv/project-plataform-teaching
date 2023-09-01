@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CursosController;
+use App\Http\Controllers\AlunosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +24,18 @@ Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware(['auth'])->group(function () {
+
     Route::get('admin', function () {
         return view('admin');
     })->name('admin');
+
+    Route::get('admin/cursos', [CursosController::class, 'index'])->name('admin.cursos');
+    
+    Route::get('admin/alunos', [AlunosController::class, 'index'])->name('admin.alunos');
+
+    Route::get('admin/matriculas', function () {
+        return view('matriculas');
+    })->name('admin.matriculas');
+
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
