@@ -9,20 +9,17 @@ class CursosController extends Controller
 {
     public function store(Request $request)
     {
-        // Valide os dados do formulário
         $request->validate([
             'titulo' => 'required',
             'descricao' => 'required',
         ]);
 
-        // Crie um novo curso com base nos dados do formulário
         $curso = new Cursos;
         $curso->titulo = $request->input('titulo');
         $curso->descricao = $request->input('descricao');
         $curso->save();
 
-        // Redirecione para a página de cursos ou faça outra ação desejada
-        return redirect()->route('admin.cursos');
+        return $this->index();
     }
 
     public function index()
@@ -32,12 +29,29 @@ class CursosController extends Controller
         return view('cursos', compact('cursos'));
     }
 
-    public function edit($id)
+    public function update(Request $request, $id)
     {
-        // Encontre o curso que você deseja editar pelo ID
+        $request->validate([
+            'titulo' => 'required',
+            'descricao' => 'required',
+        ]);
+
         $curso = Cursos::findOrFail($id);
 
-        // Retorne a view de edição com o curso
-        return view('cursos.edit', compact('curso'));
+        $curso->titulo = $request->input('titulo');
+        $curso->descricao = $request->input('descricao');
+
+        $curso->save();
+
+        return redirect()->route('cursos.index')->with('success', 'Curso atualizado com sucesso');
+    }
+
+    public function destroy($id)
+    {
+        $curso = Cursos::findOrFail($id);
+
+        $curso->delete();
+
+        return redirect()->route('cursos.index')->with('success', 'Curso excluído com sucesso.');
     }
 }

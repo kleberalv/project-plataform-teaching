@@ -52,13 +52,13 @@
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{route('admin.cursos')}}">Cursos</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('cursos.index')}}">Cursos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{route('admin.matriculas')}}">Matriculas</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('matriculas.index')}}">Matriculas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{route('admin.alunos')}}">Alunos</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('alunos.index')}}">Alunos</a>
                     </li>
                 </ul>
 

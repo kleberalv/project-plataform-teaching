@@ -30,14 +30,9 @@ Route::middleware(['auth'])->group(function () {
         return view('admin');
     })->name('admin');
 
-    Route::get('admin/cursos', [CursosController::class, 'index'])->name('admin.cursos');
-
-    Route::get('admin/alunos', [AlunosController::class, 'index'])->name('admin.alunos');
-
-    Route::get('admin/matriculas', [MatriculaController::class, 'index'])->name('admin.matriculas');
-
-    Route::resource('cursos', CursosController::class);
-    Route::post('cursos', [CursosController::class, 'store'])->name('cursos.store');
+    Route::resource('admin/alunos', AlunosController::class);
+    Route::resource('admin/matriculas', MatriculaController::class);
+    Route::resource('admin/cursos', CursosController::class);
 
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });

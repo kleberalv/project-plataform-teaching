@@ -6,7 +6,9 @@
             <div class="card bg-white mt-4">
                 <div class="card-header">
                     <h1 class="text-center my-1">Cursos Disponíveis</h1>
-                    <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#cursoModal">Adicionar Curso</button>
+                    <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#adicionarCursoModal">
+                        Adicionar Curso
+                    </button>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -25,12 +27,16 @@
                                 <td>{{ $curso->titulo }}</td>
                                 <td>{{ $curso->descricao }}</td>
                                 <td>
-                                    <button class="btn btn-primary">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarCursoModal" data-titulo="{{ $curso->titulo }}" data-descricao="{{ $curso->descricao }}">
                                         <i class="fa fa-pencil"></i> Editar
                                     </button>
-                                    <button class="btn btn-danger">
-                                        <i class="fa fa-trash"></i> Excluir
-                                    </button>
+                                    <form action="{{ route('cursos.destroy', ['curso' => $curso->id]) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa fa-trash"></i> Excluir
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -64,3 +70,72 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="adicionarCursoModal" tabindex="-1" aria-labelledby="adicionarCursoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adicionarCursoModalLabel">Adicionar Curso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('cursos.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Nome do Curso</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary" id="salvarAdicaoCurso">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editarCursoModal" tabindex="-1" aria-labelledby="editarCursoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarCursoModalLabel">Editar Curso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('cursos.update', ['curso' => $curso->id]) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editar-titulo" class="form-label">Nome do Curso</label>
+                        <input type="text" class="form-control" id="editar-titulo" name="titulo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editar-descricao" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="editar-descricao" name="descricao" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary" id="salvarEdicaoCurso">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#editarCursoModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var titulo = button.data('titulo');
+        var descricao = button.data('descricao');
+
+        var modal = $(this);
+        modal.find('#editar-titulo').val(titulo);
+        modal.find('#editar-descricao').val(descricao);
+    });
+</script>
