@@ -6,7 +6,7 @@
             <div class="card bg-white mt-4">
                 <div class="card-header">
                     <h1 class="text-center my-1">Cursos Disponíveis</h1>
-                    <a href="#" class="btn btn-primary float-end">Adicionar Curso</a>
+                    <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#cursoModal">Adicionar Curso</button>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -26,10 +26,10 @@
                                 <td>{{ $curso->descricao }}</td>
                                 <td>
                                     <button class="btn btn-primary">
-                                        <i class="fa-solid fa-pencil"></i> Editar
+                                        <i class="fa fa-pencil"></i> Editar
                                     </button>
                                     <button class="btn btn-danger">
-                                        <i class="fa-solid fa-trash"></i> Excluir
+                                        <i class="fa fa-trash"></i> Excluir
                                     </button>
                                 </td>
                             </tr>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Alunos;
 
 class Cursos extends Model
 {
@@ -12,4 +13,9 @@ class Cursos extends Model
     protected $fillable = [
         'titulo', 'descricao'
     ];
+
+    public function alunos()
+    {
+        return $this->belongsToMany(Alunos::class, 'matriculas', 'curso_id', 'aluno_id');
+    }
 }

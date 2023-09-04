@@ -28,10 +28,10 @@
                                 <td>{{ date('d/m/Y', strtotime($aluno->data_nascimento)) }}</td>
                                 <td>
                                     <button class="btn btn-primary">
-                                        <i class="fa-solid fa-pencil"></i> Editar
+                                        <i class="fa fa-pencil"></i> Editar
                                     </button>
                                     <button class="btn btn-danger">
-                                        <i class="fa-solid fa-trash"></i> Excluir
+                                        <i class="fa fa-trash"></i> Excluir
                                     </button>
                                 </td>
 

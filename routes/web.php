@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\AlunosController;
+use App\Http\Controllers\MatriculaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +31,13 @@ Route::middleware(['auth'])->group(function () {
     })->name('admin');
 
     Route::get('admin/cursos', [CursosController::class, 'index'])->name('admin.cursos');
-    
+
     Route::get('admin/alunos', [AlunosController::class, 'index'])->name('admin.alunos');
 
-    Route::get('admin/matriculas', function () {
-        return view('matriculas');
-    })->name('admin.matriculas');
+    Route::get('admin/matriculas', [MatriculaController::class, 'index'])->name('admin.matriculas');
+
+    Route::resource('cursos', CursosController::class);
+    Route::post('cursos', [CursosController::class, 'store'])->name('cursos.store');
 
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
