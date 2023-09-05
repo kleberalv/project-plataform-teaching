@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cursos;
+use App\Models\Matricula;
 
 class CursosController extends Controller
 {
@@ -50,8 +51,17 @@ class CursosController extends Controller
     {
         $curso = Cursos::findOrFail($id);
 
+        // Busque as matrículas associadas a este curso
+        $matriculas = Matricula::where('curso_id', $curso->id)->get();
+
+        // Exclua cada matrícula
+        foreach ($matriculas as $matricula) {
+            $matricula->delete();
+        }
+
+        // Agora você pode excluir o curso
         $curso->delete();
 
-        return redirect()->route('cursos.index')->with('success', 'Curso excluído com sucesso.');
+        return redirect()->route('cursos.index')->with('success', 'Curso e suas matrículas foram excluídos com sucesso.');
     }
 }

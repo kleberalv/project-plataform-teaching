@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/axios.min.js') }}"></script>
     <script src="{{ asset('js/webfont.js') }}"></script>
@@ -19,6 +19,8 @@
             background-color: #470363;
         }
     </style>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
     <title>Plataforma de Estudos</title>
 
 </head>
