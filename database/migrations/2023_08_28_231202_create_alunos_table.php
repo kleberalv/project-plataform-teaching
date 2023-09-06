@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('alunos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->nullable(false);
-            $table->string('email')->nullable(false);
-            $table->date('data_nascimento')->nullable();
+            $table->string('nome', 100)->nullable(false);
+            $table->string('email', 100)->nullable(false);
+            $table->date('data_nascimento', 10)->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });

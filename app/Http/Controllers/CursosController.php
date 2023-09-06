@@ -10,58 +10,82 @@ class CursosController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
-            'titulo' => 'required',
-            'descricao' => 'required',
-        ]);
+        try {
+            $rules = [
+                'titulo' => 'required|string|max:100',
+                'descricao' => 'required|string|max:200',
+            ];
+            $customMessages = [
+                '*' => [
+                    'required' => 'O campo :attribute é obrigatório',
+                    'max' => 'O campo :attribute deve conter no máximo :max caracteres',
+                ],
+            ];
 
-        $curso = new Cursos;
-        $curso->titulo = $request->input('titulo');
-        $curso->descricao = $request->input('descricao');
-        $curso->save();
+            $this->validate($request, $rules, $customMessages);
 
-        return $this->index();
+            $curso = new Cursos;
+            $curso->titulo = $request->input('titulo');
+            $curso->descricao = $request->input('descricao');
+            $curso->save();
+
+            return redirect()->route('cursos.index')->with('success', 'Curso criado com sucesso');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     public function index()
     {
-        $cursos = Cursos::whereNull('deleted_at')->paginate(10);
-
-        return view('cursos', compact('cursos'));
+        try {
+            $cursos = Cursos::whereNull('deleted_at')->paginate(10);
+            return view('cursos', compact('cursos'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'titulo' => 'required',
-            'descricao' => 'required',
-        ]);
+        try {
 
-        $curso = Cursos::findOrFail($id);
+            $rules = [
+                'titulo' => 'required|string|max:100',
+                'descricao' => 'required|string|max:200',
+            ];
+            $customMessages = [
+                '*' => [
+                    'required' => 'O campo :attribute é obrigatório',
+                    'max' => 'O campo :attribute deve conter no máximo :max caracteres',
+                ],
+            ];
 
-        $curso->titulo = $request->input('titulo');
-        $curso->descricao = $request->input('descricao');
+            $this->validate($request, $rules, $customMessages);
 
-        $curso->save();
-
-        return redirect()->route('cursos.index')->with('success', 'Curso atualizado com sucesso');
+            $curso = Cursos::findOrFail($id);
+            $curso->titulo = $request->input('titulo');
+            $curso->descricao = $request->input('descricao');
+            $curso->save();
+            return redirect()->route('cursos.index')->with('success', 'Curso atualizado com sucesso');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     public function destroy($id)
     {
-        $curso = Cursos::findOrFail($id);
+        try {
+            $curso = Cursos::findOrFail($id);
 
-        // Busque as matrículas associadas a este curso
-        $matriculas = Matricula::where('curso_id', $curso->id)->get();
+            $matriculas = Matricula::where('curso_id', $curso->id)->get();
 
-        // Exclua cada matrícula
-        foreach ($matriculas as $matricula) {
-            $matricula->delete();
+            foreach ($matriculas as $matricula) {
+                $matricula->delete();
+            }
+            $curso->delete();
+            return redirect()->route('cursos.index')->with('success', 'Curso e suas matrículas foram excluídos com sucesso.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        // Agora você pode excluir o curso
-        $curso->delete();
-
-        return redirect()->route('cursos.index')->with('success', 'Curso e suas matrículas foram excluídos com sucesso.');
     }
 }

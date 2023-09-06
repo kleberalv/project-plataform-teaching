@@ -36,7 +36,7 @@
                                     <form action="{{ route('alunos.destroy', ['aluno' => $aluno->id]) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
+                                        <button id="excluir" type="submit" class="btn btn-danger">
                                             <i class="fa fa-trash"></i> Excluir
                                         </button>
                                     </form>
@@ -87,20 +87,20 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome completo</label>
-                        <input type="text" class="form-control" id="nome" name="nome">
+                        <input type="text" class="form-control" id="nome" name="nome" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
                         <label for="data_nascimento" class="form-label">Data de nascimento</label>
-                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento">
+                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button id="salvarAdicao" type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
@@ -133,7 +133,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    <button id="salvarEdicao" type="submit" class="btn btn-primary">Salvar Alterações</button>
                 </div>
             </form>
         </div>

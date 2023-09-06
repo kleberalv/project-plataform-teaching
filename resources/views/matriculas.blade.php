@@ -35,7 +35,7 @@
                                     <form action="{{ route('matriculas.destroy', ['matricula' => $matricula->id]) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
+                                        <button id="excluir" type="submit" class="btn btn-danger">
                                             <i class="fa fa-trash"></i> Excluir
                                         </button>
                                     </form>
@@ -85,7 +85,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="aluno_id" class="form-label">Aluno</label>
-                        <select class="form-select" id="aluno_id" name="aluno_id">
+                        <select class="form-select" id="aluno_id" name="aluno_id" required>
                             <option value="">Selecione uma opção</option>
                             @foreach($alunos as $aluno)
                             <option value="{{ $aluno->id }}">{{ $aluno->nome }}</option>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="curso_id" class="form-label">Curso</label>
-                        <select class="form-select" id="curso_id" name="curso_id">
+                        <select class="form-select" id="curso_id" name="curso_id" required>
                             <option value="">Selecione uma opção</option>
                             @foreach($cursos as $curso)
                             <option value="{{ $curso->id }}">{{ $curso->titulo }}</option>
@@ -103,12 +103,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="data_matricula" class="form-label">Data de Matrícula</label>
-                        <input type="date" class="form-control" id="data_matricula" name="data_matricula">
+                        <input type="date" class="form-control" id="data_matricula" name="data_matricula" required>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button id="salvarAdicao" type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
@@ -151,7 +151,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    <button id="salvarEdicao" type="submit" class="btn btn-primary">Salvar Alterações</button>
                 </div>
             </form>
         </div>

@@ -33,7 +33,7 @@
                                     <form action="{{ route('cursos.destroy', ['curso' => $curso->id]) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
+                                        <button id="excluir" type="submit" class="btn btn-danger">
                                             <i class="fa fa-trash"></i> Excluir
                                         </button>
                                     </form>
@@ -83,16 +83,16 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="titulo" class="form-label">Nome do Curso</label>
-                        <input type="text" class="form-control" id="titulo" name="titulo">
+                        <input type="text" class="form-control" id="titulo" name="titulo" required>
                     </div>
                     <div class="mb-3">
                         <label for="descricao" class="form-label">Descrição</label>
-                        <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>
+                        <textarea class="form-control" id="descricao" name="descricao" rows="4" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary" id="salvarAdicaoCurso">Salvar</button>
+                    <button id="salvarAdicao" type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
@@ -112,16 +112,16 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="editar-titulo" class="form-label">Nome do Curso</label>
-                        <input type="text" class="form-control" id="editar-titulo" name="titulo">
+                        <input type="text" class="form-control" id="editar-titulo" name="titulo" required>
                     </div>
                     <div class="mb-3">
                         <label for="editar-descricao" class="form-label">Descrição</label>
-                        <textarea class="form-control" id="editar-descricao" name="descricao" rows="4"></textarea>
+                        <textarea class="form-control" id="editar-descricao" name="descricao" rows="4" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary" id="salvarEdicaoCurso">Salvar Alterações</button>
+                    <button id="salvarEdicao" type="submit" class="btn btn-primary">Salvar Alterações</button>
                 </div>
             </form>
         </div>
