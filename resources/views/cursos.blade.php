@@ -30,10 +30,10 @@
                                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarCursoModal" data-titulo="{{ $curso->titulo }}" data-descricao="{{ $curso->descricao }}">
                                         <i class="fa fa-pencil"></i> Editar
                                     </button>
-                                    <form action="{{ route('cursos.destroy', ['curso' => $curso->id]) }}" method="POST" style="display: inline;">
+                                    <form id="excluir" action="{{ route('cursos.destroy', ['curso' => $curso->id]) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button id="excluir" type="submit" class="btn btn-danger">
+                                        <button type="submit" class="btn btn-danger">
                                             <i class="fa fa-trash"></i> Excluir
                                         </button>
                                     </form>
@@ -78,7 +78,7 @@
                 <h5 class="modal-title" id="adicionarCursoModalLabel">Adicionar Curso</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('cursos.store') }}" method="POST">
+            <form id="salvarAdicao" action="{{ route('cursos.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
@@ -92,7 +92,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button id="salvarAdicao" type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
@@ -106,7 +106,7 @@
                 <h5 class="modal-title" id="editarCursoModalLabel">Editar Curso</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('cursos.update', ['curso' => $curso->id]) }}" method="POST">
+            <form id="salvarEdicao" action="{{ route('cursos.update', ['curso' => $curso->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -121,7 +121,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button id="salvarEdicao" type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                 </div>
             </form>
         </div>

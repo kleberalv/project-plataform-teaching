@@ -110,7 +110,11 @@
 
     <script>
         $(document).ready(function() {
-            $('#home, #login, #logout, #cursos, #matriculas, #alunos, #salvarAdicao, #salvarEdicao, #excluir').click(function() {
+            $('#home, #login, #salvarAdicao, #salvarEdicao, #excluir').submit(function() {
+                $('#overlay').show();
+                $('#loader').show();
+            });
+            $('#cursos, #matriculas, #alunos, #logout').click(function() {
                 $('#overlay').show();
                 $('#loader').show();
             });

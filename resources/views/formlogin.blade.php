@@ -11,7 +11,7 @@
     <div class="card col-md-4" style="background-color: white;">
         <div class="card-body text-center">
             <h2>Login</h2>
-            <form action="{{ route('login') }}" method="POST">
+            <form id="login" action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="mb-3 text-start">
                     <label for="email" class="form-label">Email</label>
@@ -25,7 +25,7 @@
                     <input type="checkbox" class="form-check-input" id="remember" name="remember">
                     <label class="form-check-label" for="remember">Remember me</label>
                 </div>
-                <button id="login" type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>
     </div>
