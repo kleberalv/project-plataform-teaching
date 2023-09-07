@@ -27,7 +27,7 @@
                                 <td>{{ $curso->titulo }}</td>
                                 <td>{{ $curso->descricao }}</td>
                                 <td>
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarCursoModal" data-titulo="{{ $curso->titulo }}" data-descricao="{{ $curso->descricao }}">
+                                    <button class="btn btn-primary editar-curso" data-bs-toggle="modal" data-bs-target="#editarCursoModal" data-curso-id="{{ $curso->id }}" data-titulo="{{ $curso->titulo }}" data-descricao="{{ $curso->descricao }}">
                                         <i class="fa fa-pencil"></i> Editar
                                     </button>
                                     <form id="excluir" action="{{ route('cursos.destroy', ['curso' => $curso->id]) }}" method="POST" style="display: inline;">
@@ -110,6 +110,7 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
+                    <input type="hidden" id="editar-curso_id" name="curso_id">
                     <div class="mb-3">
                         <label for="editar-titulo" class="form-label">Nome do Curso</label>
                         <input type="text" class="form-control" id="editar-titulo" name="titulo" required>
@@ -129,13 +130,18 @@
 </div>
 
 <script>
-    $('#editarCursoModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var titulo = button.data('titulo');
-        var descricao = button.data('descricao');
+    $(document).ready(function() {
+        $('.editar-curso').click(function() {
+            var cursoId = $(this).data('curso-id');
+            var titulo = $(this).data('titulo');
+            var descricao = $(this).data('descricao');
 
-        var modal = $(this);
-        modal.find('#editar-titulo').val(titulo);
-        modal.find('#editar-descricao').val(descricao);
+            $('#editar-curso_id').val(cursoId);
+            $('#editar-titulo').val(titulo);
+            $('#editar-descricao').val(descricao);
+
+            // Abra a modal de edição
+            $('#editarCursoModal').modal('show');
+        });
     });
 </script>

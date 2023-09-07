@@ -17,7 +17,7 @@ class MatriculasSeeder extends Seeder
         $alunos = Alunos::pluck('id')->toArray();
         $Cursos = Cursos::pluck('id')->toArray();
 
-        foreach (range(1, 20) as $index) {
+        foreach (range(1, 5) as $index) {
             Matricula::create([
                 'aluno_id' => $faker->randomElement($alunos),
                 'curso_id' => $faker->randomElement($Cursos),

@@ -21,14 +21,11 @@ class CursosController extends Controller
                     'max' => 'O campo :attribute deve conter no máximo :max caracteres',
                 ],
             ];
-
             $this->validate($request, $rules, $customMessages);
-
             $curso = new Cursos;
             $curso->titulo = $request->input('titulo');
             $curso->descricao = $request->input('descricao');
             $curso->save();
-
             return redirect()->route('cursos.index')->with('success', 'Curso criado com sucesso');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
@@ -45,10 +42,9 @@ class CursosController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         try {
-
             $rules = [
                 'titulo' => 'required|string|max:100',
                 'descricao' => 'required|string|max:200',
@@ -59,10 +55,8 @@ class CursosController extends Controller
                     'max' => 'O campo :attribute deve conter no máximo :max caracteres',
                 ],
             ];
-
             $this->validate($request, $rules, $customMessages);
-
-            $curso = Cursos::findOrFail($id);
+            $curso = Cursos::findOrFail($request->curso_id);
             $curso->titulo = $request->input('titulo');
             $curso->descricao = $request->input('descricao');
             $curso->save();
@@ -76,9 +70,7 @@ class CursosController extends Controller
     {
         try {
             $curso = Cursos::findOrFail($id);
-
             $matriculas = Matricula::where('curso_id', $curso->id)->get();
-
             foreach ($matriculas as $matricula) {
                 $matricula->delete();
             }

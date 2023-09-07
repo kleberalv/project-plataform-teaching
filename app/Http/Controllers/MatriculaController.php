@@ -24,15 +24,12 @@ class MatriculaController extends Controller
                 ],
             ];
             $this->validate($request, $rules, $customMessages);
-
             $matriculaExistente = Matricula::where('aluno_id', $request->aluno_id)
                 ->where('curso_id', $request->curso_id)
                 ->first();
-
             if ($matriculaExistente) {
                 return back()->with('error', 'Este aluno já está matriculado neste curso.');
             }
-
             $matricula = new Matricula;
             $matricula->aluno_id = $request->aluno_id;
             $matricula->curso_id = $request->curso_id;
@@ -56,7 +53,7 @@ class MatriculaController extends Controller
         }
     }
 
-    public function update(Request $request, Matricula $matricula)
+    public function update(Request $request)
     {
         try {
             $rules = [
@@ -69,16 +66,15 @@ class MatriculaController extends Controller
                     'required' => 'O campo :attribute é obrigatório',
                 ],
             ];
-
             $this->validate($request, $rules, $customMessages);
-            $matriculaExistente = Matricula::where('aluno_id', $request->aluno_id)
-                ->where('curso_id', $request->curso_id)
+            $matricula = Matricula::findOrFail($request->matricula_id);
+            $matriculaExistente = Matricula::where('aluno_id', $request->input('aluno_id'))
+                ->where('curso_id', $request->input('curso_id'))
+                ->where('id', '!=', $matricula->id)
                 ->first();
-
             if ($matriculaExistente) {
                 return back()->with('error', 'Este aluno já está matriculado neste curso.');
             }
-
             $matricula->aluno_id = $request->input('aluno_id');
             $matricula->curso_id = $request->input('curso_id');
             $matricula->data_matricula = $request->input('data_matricula');
@@ -88,6 +84,7 @@ class MatriculaController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
 
     public function destroy(Matricula $matricula)
     {

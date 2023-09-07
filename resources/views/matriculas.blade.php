@@ -126,6 +126,7 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
+                    <input type="hidden" id="editar-matricula_id" name="matricula_id">
                     <div class="mb-3">
                         <label for="editar-aluno_id" class="form-label">Aluno</label>
                         <select class="form-select" id="editar-aluno_id" name="aluno_id">
@@ -166,7 +167,7 @@
             var cursoId = $(this).data('curso-id');
             var dataMatricula = $(this).data('data-matricula');
 
-            // Preencha os campos da modal de edição com os dados obtidos do botão "Editar"
+            $('#editar-matricula_id').val(matriculaId);
             $('#editar-aluno_id').val(alunoId);
             $('#editar-curso_id').val(cursoId);
             $('#editar-data_matricula').val(dataMatricula);

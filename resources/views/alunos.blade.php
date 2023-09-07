@@ -1,6 +1,6 @@
 @include('include.header')
 
-<div class="container-fluid" style=" min-height: 80vh;">
+<div class="container-fluid" style="min-height: 80vh;">
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="col-md-8">
             <div class="card bg-white mt-4">
@@ -29,10 +29,9 @@
                                 <td>{{ $aluno->email }}</td>
                                 <td>{{ date('d/m/Y', strtotime($aluno->data_nascimento)) }}</td>
                                 <td>
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarAlunoModal" data-nome="{{ $aluno->nome }}" data-email="{{ $aluno->email }}" data-data-nascimento="{{ $aluno->data_nascimento }}">
+                                    <button class="btn btn-primary editar-aluno" data-bs-toggle="modal" data-bs-target="#editarAlunoModal" data-aluno-id="{{ $aluno->id }}" data-nome="{{ $aluno->nome }}" data-email="{{ $aluno->email }}" data-data-nascimento="{{ date('Y-m-d', strtotime($aluno->data_nascimento)) }}">
                                         <i class="fa fa-pencil"></i> Editar
                                     </button>
-
                                     <form id="excluir" action="{{ route('alunos.destroy', ['aluno' => $aluno->id]) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
@@ -118,6 +117,7 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
+                    <input type="hidden" id="editar-aluno_id" name="aluno_id">
                     <div class="mb-3">
                         <label for="editar-nome" class="form-label">Nome completo</label>
                         <input type="text" class="form-control" id="editar-nome" name="nome">
@@ -141,15 +141,20 @@
 </div>
 
 <script>
-    $('#editarAlunoModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var nome = button.data('nome');
-        var email = button.data('email');
-        var dataNascimento = button.data('data-nascimento');
+    $(document).ready(function() {
+        $('.editar-aluno').click(function() {
+            var alunoId = $(this).data('aluno-id');
+            var nome = $(this).data('nome');
+            var email = $(this).data('email');
+            var dataNascimento = $(this).data('data-nascimento');
 
-        var modal = $(this);
-        modal.find('#editar-nome').val(nome);
-        modal.find('#editar-email').val(email);
-        modal.find('#editar-data_nascimento').val(dataNascimento);
+            $('#editar-aluno_id').val(alunoId);
+            $('#editar-nome').val(nome);
+            $('#editar-email').val(email);
+            $('#editar-data_nascimento').val(dataNascimento);
+
+            // Abra a modal de edição
+            $('#editarAlunoModal').modal('show');
+        });
     });
 </script>
