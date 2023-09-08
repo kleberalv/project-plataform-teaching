@@ -15,13 +15,10 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
         if (Auth::attempt($credentials)) {
-            // Autenticação bem-sucedida
             return redirect()->intended('/admin');
         } else {
-            // Autenticação falhou
-            return back()->withErrors(['email' => 'Credenciais inválidas.']);
+            return back()->with('error', 'Usuário ou senha incorretos');
         }
     }
 
