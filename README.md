@@ -38,7 +38,7 @@ Este projeto é fornecido "no estado em que se encontra", sem garantias de qualq
 
 Siga as etapas abaixo para configurar e executar o projeto:
 
-1. Clone o repositórios project-plataform-teaching em seu sistema.
+1. Clone o repositório project-plataform-teaching em seu sistema.
 
 2. Abra um terminal e navegue até o diretório project-plataform-teaching.
 
@@ -53,7 +53,10 @@ Siga as etapas abaixo para configurar e executar o projeto:
 6. Dentro do contêiner app, execute o seguinte comando:
 `composer install`
 
-7. Agora, você pode acessar o projeto em seu navegador através do link: http://localhost:8080/.
+7. Após a instalação das dependências, rode o seguinte comando para a criar e popular o banco de dados:
+`php artisan migate` e `php artisan db:seed`
+
+8. Agora, você pode acessar o projeto em seu navegador através do link: http://localhost:8080/.
 
 ## Tecnologias utilizadas
 <div align="left">
@@ -72,4 +75,4 @@ Siga as etapas abaixo para configurar e executar o projeto:
 </div>
 
 # Copyright ©
-Copyright © Developed by: Kleber Alves Bezerera Junior - Sênior Developer 2022.
+Copyright © Developed by: Kleber Alves Bezerera Junior - Full Stack Developer 2023.
