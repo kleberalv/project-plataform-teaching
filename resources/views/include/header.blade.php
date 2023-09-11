@@ -110,7 +110,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#login, #salvarAdicao, #salvarEdicao, #excluir').submit(function() {
+            $('#login, #salvarAdicao, #salvarEdicao, #excluir, #search').submit(function() {
                 $('#overlay').show();
                 $('#loader').show();
             });

@@ -6,11 +6,26 @@
             <div class="card bg-white mt-4">
                 <div class="card-header">
                     <h1 class="text-center my-1">Cursos Disponíveis</h1>
-                    <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#adicionarCursoModal">
-                        Adicionar Curso
-                    </button>
+                    <br>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <form id="search" action="{{ route('cursos.index') }}" method="GET">
+                            <div class="input-group" style="width: 300px;">
+                                <input type="text" name="search" class="form-control" placeholder="Pesquisar" aria-label="Buscar" aria-describedby="button-addon2">
+                                <button class="btn btn-secondary" type="submit">Buscar</button>
+                            </div>
+                        </form>
+                        <div class="ml-auto">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adicionarCursoModal">
+                                Adicionar Curso
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
+                    @if ($cursos->isEmpty())
+                    <p class="d-flex justify-content-center ">Nenhum curso encontrado</p>
+                    <br>
+                    @else
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -42,6 +57,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @endif
                     <div class="d-flex justify-content-center ">
                         <ul class="pagination">
                             @if ($cursos->onFirstPage())
@@ -99,6 +115,7 @@
     </div>
 </div>
 
+@if(isset($curso))
 <div class="modal fade" id="editarCursoModal" tabindex="-1" aria-labelledby="editarCursoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -128,6 +145,7 @@
         </div>
     </div>
 </div>
+@endif
 
 <script>
     $(document).ready(function() {

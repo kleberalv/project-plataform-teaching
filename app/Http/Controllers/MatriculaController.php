@@ -41,10 +41,19 @@ class MatriculaController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $matriculas = Matricula::with(['alunos:id,nome', 'cursos:id,titulo'])->paginate(10);
+            $search = $request->input('search');
+            $matriculas = Matricula::with(['alunos:id,nome', 'cursos:id,titulo'])
+                ->when($search, function ($query) use ($search) {
+                    return $query->whereHas('alunos', function ($subquery) use ($search) {
+                        $subquery->where('alunos.nome', 'like', "%$search%");
+                    })->orWhereHas('cursos', function ($subquery) use ($search) {
+                        $subquery->where('cursos.titulo', 'like', "%$search%");
+                    });
+                })
+                ->paginate(10);
             $alunos = Alunos::whereNull('deleted_at')->get();
             $cursos = Cursos::whereNull('deleted_at')->get();
             return view('matriculas', compact('matriculas', 'alunos', 'cursos'));

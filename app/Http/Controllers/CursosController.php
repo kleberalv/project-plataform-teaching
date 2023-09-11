@@ -32,10 +32,16 @@ class CursosController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $cursos = Cursos::whereNull('deleted_at')->paginate(10);
+            $search = $request->input('search');
+            $cursos = Cursos::whereNull('deleted_at')
+                ->when($search, function ($query) use ($search) {
+                    return $query->where('titulo', 'like', "%$search%");
+                })
+                ->paginate(10);
+
             return view('cursos', compact('cursos'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());

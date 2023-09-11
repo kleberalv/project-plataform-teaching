@@ -35,10 +35,17 @@ class AlunosController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $alunos = Alunos::whereNull('deleted_at')->paginate(10);
+            $search = $request->input('search');
+            $alunos = Alunos::whereNull('deleted_at')
+                ->when($search, function ($query) use ($search) {
+                    return $query->where('nome', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%");
+                })
+                ->paginate(10);
+
             return view('alunos', compact('alunos'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
